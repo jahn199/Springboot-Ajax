@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main page</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>카페 정보</h1>
+<div id="cafeInfo">
+    <p>카페 정보들...</p>
+</div>
+<script>
+    $.ajax({
+        url:'/api/cafes',
+        method:'get',
+        success:
+            function (data) {
+                let info;
+                if(data.length > 0) {
+                    $.each(data,
+                        function (index, cafe) {
+                            info += `
+                                                            <p> ID : </a>${cafe.id}</p>
+                                                            <p> Name : ${cafe.name}</p>
+                                                            <p> Address : ${cafe.address}</p>
+                                                            <p> PhoneNumber : ${cafe.phoneNumber}</p>
+                                                            <p> OpeningTime : ${cafe.openingTime}</p>
+                                                            <p> ClosingTime : ${cafe.closingTime}</p>
+                                                            <p> Description : ${cafe.description}</p>
+                                                            `;
+                        }
+                    )
+                    $("#cafeInfo").html(info);
+                } else {
+                    $("#cafeInfo").html("<p>정보가 조회되지 않습니다.</p>");
+                }
+            },
+        error :
+            function (){
+                alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.");
+            }
+    })
+</script>
+</body>
+</html>
