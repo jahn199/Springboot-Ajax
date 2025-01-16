@@ -10,7 +10,6 @@
 <body>
 <h1>카페 정보</h1>
 <div id="cafeInfo">
-    <p>카페 정보들...</p>
 </div>
 <script>
     $.ajax({
@@ -18,26 +17,18 @@
         method:'get',
         success:
             function (data) {
-                let info;
-                if(data.length > 0) {
                     $.each(data,
                         function (index, cafe) {
-                            info += `
-                                                            <p> ID : </a>${cafe.id}</p>
+                            $("#cafeInfo").append(`
+                                                            <p> ID : ${cafe.id}</p>
                                                             <p> Name : ${cafe.name}</p>
                                                             <p> Address : ${cafe.address}</p>
                                                             <p> PhoneNumber : ${cafe.phoneNumber}</p>
                                                             <p> OpeningTime : ${cafe.openingTime}</p>
                                                             <p> ClosingTime : ${cafe.closingTime}</p>
-                                                            <p> Description : ${cafe.description}</p>
-                                                            `;
-                        }
-                    )
-                    $("#cafeInfo").html(info);
-                } else {
-                    $("#cafeInfo").html("<p>정보가 조회되지 않습니다.</p>");
-                }
-            },
+                                                            <p> Description : ${cafe.description}</p>`);
+                        })
+                },
         error :
             function (){
                 alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.");
