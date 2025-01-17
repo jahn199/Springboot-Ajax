@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카페 목록</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>카페 목록</h1>
+<div id="cafeList">
+    <!-- 카페 목록 표시 영역 -->
+    <p id="name"></p>
+    <p id="address"></p>
+    <p id="phoneNumber"></p>
+    <p id="openingTime"></p>
+    <p id="closingTime"></p>
+    <p id="description"></p>
+</div>
+<script>
+    const query = new URLSearchParams(window.location.search);
+    const id = query.get('id');
+    $.ajax({
+        url:"/api/cafes/"+id, //`/api/cafes/${id}`,
+        method:'get',
+        success:function (data){
+            if(data) {
+                $("#name").html(`<p> 이름 : ${data.name}</p>`);
+                $("#address").html(`<p> 주소 : ${data.address}</p>`);
+                $("#phoneNumber").html(`<p> 전화번호 : ${data.phoneNumber}</p>`);
+                $("#openingTime").html(`<p> 오픈 시간 : ${data.openingTime}</p>`);
+                $("#closingTime").html(`<p> 클로즈 시간 : ${data.closingTime}</p>`);
+                $("#description").html(`<p> 설명 : ${data.description}</p>`);
+
+            } else{
+                $("#cafeList").html('<p>일치하는 카페를 조회할 수 없습니다.</p>');
+            }
+        },
+        error: function (){
+            alert("데이터를 가져오는데 실패했습니다.");
+        }
+    })
+</script>
+</body>
+</html>

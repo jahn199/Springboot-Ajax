@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세 정보</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>유저 상세정보</h1>
+<div id="userdetail">
+    <p id="email"></p>
+    <p id="username"></p>
+    <p id="password"></p>
+    <p id="firstname"></p>
+    <p id="lastname"></p>
+    <p id="phone"></p>
+    <p id="city"></p>
+    <p id="street"></p>
+    <p id="streetNumber"></p>
+    <p id="zipcode"></p>
+    <p id="geolat"></p>
+    <p id="geolong"></p>
+</div>
+<script>
+    const query = new URLSearchParams(window.location.search);
+    const userId = query.get('id');
+
+    $.ajax({
+        url: '/api/person/' + userId,
+        method: 'GET',
+        success: function (data) {
+            console.log(data);
+            if (data) {
+                $("#email").html(`<p> email : ${data.email}</p>`);
+                $("#username").html(`<p> username : ${data.username}</p>`);
+                $("#password").html(`<p> password : ${data.password}</p>`);
+                $("#firstname").html(`<p> firstname : ${data.firstname}</p>`);
+                $("#lastname").html(`<p> lastname : ${data.lastname}</p>`);
+                $("#phone").html(`<p> phone : ${data.phone}</p>`);
+                $("#city").html(`<p> city : ${data.city}</p>`);
+                $("#street").html(`<p> street : ${data.street}</p>`);
+                $("#streetNumber").html(`<p> streetNumber : ${data.streetNumber}</p>`);
+                $("#zipcode").html(`<p> zipcode : ${data.zipcode}</p>`);
+                $("#geolat").html(`<p> geolocation_lat : ${data.geolocationLat}</p>`);
+                $("#geolong").html(`<p> geolocation_long : ${data.geolocationLong}</p>`);
+            } else {
+                $("#userdetail").html('<p>일치하는 유저를 조회할 수 없습니다.</p>');
+            }
+        },
+        error: function () {
+            alert("데이터를 가져오는걸 실패했습니다.")
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유저들</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>유저들 정보</h1>
+<div class="person-container" id="persons">
+
+</div>
+<script>
+    $.ajax({
+        url:'/api/person',
+        method:'get',
+        success:function (data){
+            $.each(data, function (index, info) {
+              $('#persons').append(
+                `<p><a href="/all/inone?id=${info.id}"> ID : </a> ${info.id}</p>
+                <p> email : ${info.email}</p>
+                <p> username : ${info.username}</p>
+                <p>   password  : ${info.password}</p>
+                <p>  firstname  : ${info.firstname}</p>
+                <p>  lastname : ${info.lastname}</p>
+                <p>  phone   : ${info.phone}</p>
+                <p>  city   : ${info.city}</p>
+                <p>  street   : ${info.street}</p>
+                <p>  street_number  : ${info.streetNumber}</p>
+                <p>   zipcode  : ${info.zipcode}</p>
+                <p>  geolocation_lat  : ${info.geolocationLat}</p>
+                <p>  geolocation_long  : ${info.geolocationLong}</p>`)
+            })
+        },
+        error: function () {
+            alert("데이터를 가져오는데 실패했습니다.");
+        }
+    })
+</script>
+</body>
+</html>

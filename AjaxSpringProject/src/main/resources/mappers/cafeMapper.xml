@@ -7,4 +7,10 @@
         SELECT * FROM cafes
     </select>
 
+    <select id="getCafeId">
+    SELECT *
+    FROM cafes
+    WHERE id=#{id}
+    </select>
+
 </mapper>

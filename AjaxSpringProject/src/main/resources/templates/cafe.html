@@ -20,7 +20,7 @@
                     $.each(data,
                         function (index, cafe) {
                             $("#cafeInfo").append(`
-                                                            <p> ID : ${cafe.id}</p>
+                                                            <p><a href="/all/info?id=${cafe.id}"> ID : </a> ${cafe.id}</p>
                                                             <p> Name : ${cafe.name}</p>
                                                             <p> Address : ${cafe.address}</p>
                                                             <p> PhoneNumber : ${cafe.phoneNumber}</p>
